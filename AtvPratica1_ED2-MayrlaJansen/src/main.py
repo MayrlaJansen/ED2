@@ -19,20 +19,17 @@ if __name__ == "__main__":
         algoritimoDeOrdenacao = MergeSort()
     elif int(escolha) == 3:
         algoritimoDeOrdenacao = InsertionSort()
-    # elif int(escolha) == 4:
-    #     L = input("Informe o tamanho desejado para o L:")
-    #     print(L)
-    #     algoritimoDeOrdenacao = QuicksortInserçãoParcial()
-    # elif int(escolha) == 5:
-    #     L = input("Informe o tamanho desejado para o L:")
-    #     algoritimoDeOrdenacao =  QuicksortInserçãoFinal()
-    # elif int(escolha) == 6:
-    #     L = input("Informe o tamanho desejado para o L:")
-    #     algoritimoDeOrdenacao = MergesortInserçãoParcial()
+    elif int(escolha) == 4:
+        algoritimoDeOrdenacao = QuicksortInsercaoParcial()
+    elif int(escolha) == 5:
+        algoritimoDeOrdenacao = QuicksortInsercaoFinal()
+    elif int(escolha) == 6:
+        algoritimoDeOrdenacao = MergesortInsercaoParcial()
     # elif int(escolha) == 7:
-    #     L = input("Informe o tamanho desejado para o L:")
-    #     algoritimoDeOrdenacao = MergesortInserçãoFinal()
-
+    #     algoritimoDeOrdenacao = MergesortInsercaoFinal()
+    else:
+        print("Entrada Invalida!")
+        quit()
 
 
     print("Informe qual arquivo de Vertices deseja usar:")

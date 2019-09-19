@@ -1,23 +1,19 @@
-'''
-Introdução:
-- Implementar algoritmo de ordenação que receba uma colecão
-- A coleção é uma lista de arestas
-- Para comparar o peso as arestas entre dois item da coleção basta usar a chave 'weight' (peso)
-
-Exemplos:
-- Modo convencional
-colecao[i] operador de comparacao colecao[j]
-colecao[i] < colecao[j]
-
-- Modo que você vai usar
-int(colecao[i]['weight']) operador de comparacao int(colecao[j]['weight'])
-int(colecao[i]['weight']) < int(colecao[j]['weight'])
-
-É nescessário converter o valor pra Interger no momento da comparação a fim de evitar erros
-'''
+# Introdução:
+# - Implementar algoritmo de ordenação que receba uma colecão
+# - A coleção é uma lista de arestas
+# - Para comparar o peso as arestas entre dois item da coleção basta usar a chave 'weight' (peso)
+# Exemplos:
+# - Modo convencional
+# colecao[i] operador de comparacao colecao[j]
+# colecao[i] < colecao[j]
+# - Modo que você vai usar
+# int(colecao[i]['weight']) operador de comparacao int(colecao[j]['weight'])
+# int(colecao[i]['weight']) < int(colecao[j]['weight'])
+# É nescessário converter o valor pra Interger no momento da comparação a fim de evitar erros
+# '''
 import random
 
-# Sua classe algoritmo de ordenação precisar ter um método ordenar
+# # Sua classe algoritmo de ordenação precisar ter um método ordenar
 class InsertionSort(object):
     def ordenar(self, colecao):
         '''
@@ -111,10 +107,92 @@ class QuickSort(object):
         return self.particao(colecao,ini,fim)
             
 
+class QuicksortInsercaoParcial(object):
+    def ordenar(self,colecao):
+        L = input("Informe o L desejado:")
+        print ("L escolhido:", L)
+        self.sort(colecao, 0, len(colecao)-1, L)
 
+        return colecao
 
-
-
-
+    def particao(self, colecao, ini, fim):
+        pivo = colecao[fim-1]
+        start = ini
+        end = ini
+        for i in range(ini, fim):
+            if int(colecao[i]['weight']) > int(pivo['weight']):
+                end += 1
+            else:
+                end += 1       
+                start += 1
+                colecao[i], colecao[start-1] = colecao[start-1], colecao[i]
+        return start-1
         
- 
+    def sort(self, colecao, ini, fim, L):
+        if int(fim+1) <= int(L):
+            print("aqui a particao eh menor", fim+1)
+            for i in range(1, len(colecao)): #percorre da 2 posicao ate o final
+                key = colecao[i] #representa o indice do laco a ser ordenado
+                j = i-1 #usa-se para "excluir" a parte ja ordenada
+                while j >=0 and int(key['weight']) < int(colecao[j]['weight']) : #faz as comparacoes da chave com a parte que ainda não foi ordenada
+                    colecao[j+1] = colecao[j] #caso seja menor, move para uma posicao a frente da posicao atual
+                    j -= 1 #decremento de j
+                colecao[j+1] = key #realiza-se a troca final
+            return colecao
+        if ini < fim:
+            pp = self.randparticao(colecao, ini, fim)
+            self.sort(colecao, ini, pp, L)
+            self.sort(colecao, pp+1,fim, L)
+    
+    def randparticao(self,colecao,ini,fim):
+        rand = random.randrange(ini,fim)
+        colecao[rand], colecao[fim-1] = colecao[fim-1], colecao[rand]
+        return self.particao(colecao,ini,fim)
+
+
+
+
+
+
+
+class QuicksortInsercaoFinal(object):
+    def ordenar(self,colecao):
+        L = input("Informe o L desejado:")
+        print ("L escolhido:", L)
+        self.sort(colecao, 0, len(colecao)-1, L)
+
+        return colecao
+
+    def particao(self, colecao, ini, fim):
+        pivo = colecao[fim-1]
+        start = ini
+        end = ini
+        for i in range(ini, fim):
+            if int(colecao[i]['weight']) > int(pivo['weight']):
+                end += 1
+            else:
+                end += 1       
+                start += 1
+                colecao[i], colecao[start-1] = colecao[start-1], colecao[i]
+        return start-1
+        
+    def sort(self, colecao, ini, fim, L):
+        if ini < fim:
+            pp = self.randparticao(colecao, ini, fim)
+            self.sort(colecao, ini, pp, L)
+            self.sort(colecao, pp+1,fim, L)
+            if (int(fim) <= int(L)) and (int(pp+1)<=int(L)):
+                print("aqui as particoes sao menores", pp+1, fim)
+                for i in range(1, len(colecao)): #percorre da 2 posicao ate o final
+                    key = colecao[i] #representa o indice do laco a ser ordenado
+                    j = i-1 #usa-se para "excluir" a parte ja ordenada
+                    while j >=0 and int(key['weight']) < int(colecao[j]['weight']) : #faz as comparacoes da chave com a parte que ainda não foi ordenada
+                        colecao[j+1] = colecao[j] #caso seja menor, move para uma posicao a frente da posicao atual
+                        j -= 1 #decremento de j
+                    colecao[j+1] = key #realiza-se a troca final
+                return colecao
+    
+    def randparticao(self,colecao,ini,fim):
+        rand = random.randrange(ini,fim)
+        colecao[rand], colecao[fim-1] = colecao[fim-1], colecao[rand]
+        return self.particao(colecao,ini,fim)
