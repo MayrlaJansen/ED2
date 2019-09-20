@@ -25,8 +25,8 @@ if __name__ == "__main__":
         algoritimoDeOrdenacao = QuicksortInsercaoFinal()
     elif int(escolha) == 6:
         algoritimoDeOrdenacao = MergesortInsercaoParcial()
-    # elif int(escolha) == 7:
-    #     algoritimoDeOrdenacao = MergesortInsercaoFinal()
+    elif int(escolha) == 7:
+        algoritimoDeOrdenacao = MergesortInsercaoFinal()
     else:
         print("Entrada Invalida!")
         quit()

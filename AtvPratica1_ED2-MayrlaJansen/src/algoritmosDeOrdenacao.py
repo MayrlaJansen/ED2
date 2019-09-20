@@ -196,3 +196,72 @@ class QuicksortInsercaoFinal(object):
         rand = random.randrange(ini,fim)
         colecao[rand], colecao[fim-1] = colecao[fim-1], colecao[rand]
         return self.particao(colecao,ini,fim)
+
+
+
+
+
+class MergesortInsercaoParcial(object):
+    def ordenar(self, colecao):
+        L = input("Informe o L:")
+        print(L)
+        self.func(colecao, L)
+        return colecao
+    def func(self,colecao, L):
+        if len(colecao)>1: #testa se o tamanho da colecao e maior que 1
+            mid = int(len(colecao)//2) #acha o meio da colecao
+            lefthalf = colecao[:mid] #divide para o lado esquerdo
+            righthalf = colecao[mid:] #divide para o lado direito
+
+            #recursion
+            ##caso o teste dê errado, alterar para "self.mergeSort(lefthalf)"
+            
+            if (len(lefthalf) <= int(L)) and (len(righthalf) <= int(L)):
+                self.ordenarInsercao(lefthalf)
+                self.ordenarInsercao(righthalf)
+
+
+            else:
+                self.func(lefthalf,L) #chamada recursiva para o lado esquerdo
+                self.func(righthalf,L) #chamada recursiva para o lado direito
+
+
+            i=0
+            j=0
+            k=0
+
+            while i < len(lefthalf) and j < len(righthalf): #laco que vai do primeiro elemento ate o final das listas criadas
+                if int(lefthalf[i]['weight']) < int(righthalf[j]['weight']): #teste de comparacao
+                    colecao[k]=lefthalf[i] #caso o elemento da esquerda seja menor, coloca-o na posicao 0 da colecao
+                    i=i+1 #incremento de i
+                else:
+                    colecao[k]=righthalf[j] #caso o elemento da direita seja menor, coloca-o na posicao 0 da colecao
+                    j=j+1 #incremento de j
+                k=k+1 #incremento de k
+
+            while i < len(lefthalf): #atribuicao da lista ao final da colecao, caso o da direita termine e ainda tenha elementos na esquerda
+                colecao[k]=lefthalf[i] 
+                i=i+1
+                k=k+1
+
+            while j < len(righthalf):#atribuicao da lista ao final da colecao, caso o da esquerda termine e ainda tenha elementos na direita
+                colecao[k]=righthalf[j]
+                j=j+1
+                k=k+1
+        return colecao
+        
+    def ordenarInsercao(self, list):
+        for i in range(1, len(list)): #percorre da 2 posicao ate o final
+            key = list[i] #representa o indice do laco a ser ordenado
+            j = i-1 #usa-se para "excluir" a parte ja ordenada
+            while j >=0 and int(key['weight']) < int(list[j]['weight']) : #faz as comparacoes da chave com a parte que ainda não foi ordenada
+                list[j+1] = list[j] #caso seja menor, move para uma posicao a frente da posicao atual
+                j -= 1 #decremento de j
+            list[j+1] = key #realiza-se a troca final
+        return list
+  
+           
+
+
+
+
